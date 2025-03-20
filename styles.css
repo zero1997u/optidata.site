@@ -1,0 +1,366 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.tools-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.tool-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+}
+
+.tool-card h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.upload-area {
+    flex: 1;
+    border: 2px dashed #3498db;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.upload-area:hover {
+    background-color: #f7f9fc;
+    border-color: #2980b9;
+}
+
+.upload-area input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    fill: #3498db;
+}
+
+.upload-area p {
+    color: #7f8c8d;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.upload-area:hover .upload-icon {
+    fill: #2980b9;
+}
+
+.action-btn {
+    margin-top: auto;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: #2980b9;
+}
+
+.page-range {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-range input {
+    width: 80px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.quality-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.quality-control input[type="range"] {
+    flex: 1;
+}
+
+.result-area {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-height: 100px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.tip-text {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+/* OCR结果弹窗样式 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.modal-body {
+    margin-bottom: 1rem;
+}
+
+.ocr-result-text {
+    width: 100%;
+    min-height: 300px;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.modal-footer {
+    text-align: right;
+}
+
+.copy-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.copy-btn:hover {
+    background-color: #2980b9;
+}
+
+.page-preview-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.page-preview {
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-preview:hover {
+    border-color: #3498db;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-preview.selected {
+    border-color: #3498db;
+    background-color: #f7f9fc;
+}
+
+.page-preview img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.page-preview .page-number {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.page-preview .checkbox {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.page-preview.selected .checkbox {
+    background-color: #3498db;
+}
+
+.page-preview.selected .checkbox::after {
+    content: '✓';
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+}
+
+.page-selection-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.secondary-btn {
+    background-color: #f7f9fc;
+    color: #3498db;
+    border: 1px solid #3498db;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.secondary-btn:hover {
+    background-color: #e8f4f8;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .tools-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        margin: 1rem;
+        width: auto;
+    }
+    
+    .page-preview-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+} 
