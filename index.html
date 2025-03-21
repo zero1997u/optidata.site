@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BEEMW8DJ9H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-BEEMW8DJ9H');
+    </script>
+
+    <!-- 基本 meta 标签 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-4722464732169749">
+    <title>PDF工具箱 - 免费在线PDF处理工具 | 合并/拆分/转图片/压缩/OCR</title>
+    <meta name="description" content="免费在线PDF工具箱，提供PDF合并、拆分、转图片、压缩、OCR文字识别等功能。所有操作在浏览器中完成，无需上传文件，保护您的隐私安全。快速、便捷、安全的PDF在线处理工具。">
+    
+    <!-- 关键词 -->
+    <meta name="keywords" content="PDF工具,PDF合并,PDF拆分,PDF转图片,PDF压缩,OCR文字识别,在线工具,免费PDF处理,PDF编辑器,在线PDF转换,PDF处理工具,免费PDF工具">
+    
+    <!-- Open Graph 标签 -->
+    <meta property="og:title" content="PDF工具箱 - 免费在线PDF处理工具">
+    <meta property="og:description" content="免费在线PDF工具箱，支持PDF合并、拆分、转图片、压缩、OCR文字识别等功能。所有操作在浏览器中完成，保护您的隐私安全。">
+    <meta property="og:type" content="website">
+    
+    <!-- 其他优化标签 -->
+    <meta name="author" content="PDF工具箱">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="zh-CN">
+    <meta name="application-name" content="PDF工具箱">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="PDF工具箱">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PDF工具箱</h1>
+            <p>一个轻量级的PDF处理工具，所有操作在浏览器中完成，不保存数据，保护您的隐私安全</p>
+        </header>
+
+        <div class="tools-container">
+            <div class="tool-card" id="merge-tool">
+                <h2>PDF合并</h2>
+                <div class="upload-area" id="merge-upload">
+                    <input type="file" multiple accept=".pdf" id="merge-files">
+                    <div class="upload-content">
+                        <svg class="upload-icon" viewBox="0 0 24 24">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        <p>点击或拖拽PDF文件到这里</p>
+                    </div>
+                </div>
+                <p class="tip-text">按住Ctrl键可连续选择多个文件</p>
+                <button class="action-btn" id="merge-btn">合并PDF</button>
+            </div>
+
+            <div class="tool-card" id="split-tool">
+                <h2>PDF拆分</h2>
+                <div class="upload-area" id="split-upload">
+                    <input type="file" accept=".pdf" id="split-file">
+                    <div class="upload-content">
+                        <svg class="upload-icon" viewBox="0 0 24 24">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        <p>点击或拖拽PDF文件到这里</p>
+                    </div>
+                </div>
+                <div class="page-range">
+                    <input type="number" id="start-page" placeholder="起始页">
+                    <span>至</span>
+                    <input type="number" id="end-page" placeholder="结束页">
+                </div>
+                <button class="action-btn" id="split-btn">拆分PDF</button>
+            </div>
+
+            <div class="tool-card" id="convert-tool">
+                <h2>PDF转图片</h2>
+                <div class="upload-area" id="convert-upload">
+                    <input type="file" accept=".pdf" id="convert-file">
+                    <div class="upload-content">
+                        <svg class="upload-icon" viewBox="0 0 24 24">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        <p>点击或拖拽PDF文件到这里</p>
+                    </div>
+                </div>
+                <select id="image-format">
+                    <option value="png">PNG</option>
+                    <option value="jpeg">JPEG</option>
+                    <option value="webp">WebP</option>
+                </select>
+                <button class="action-btn" id="convert-btn">转换为图片</button>
+            </div>
+
+            <!-- PDF转图片弹窗 -->
+            <div id="convert-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>选择要转换的页面</h3>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="page-preview-container">
+                            <!-- 页面预览将在这里动态生成 -->
+                        </div>
+                        <div class="page-selection-controls">
+                            <button id="select-all" class="secondary-btn">全选</button>
+                            <button id="deselect-all" class="secondary-btn">取消全选</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="export-selected" class="action-btn">导出选中页面</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card" id="compress-tool">
+                <h2>PDF压缩</h2>
+                <div class="upload-area" id="compress-upload">
+                    <input type="file" accept=".pdf" id="compress-file">
+                    <div class="upload-content">
+                        <svg class="upload-icon" viewBox="0 0 24 24">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        <p>点击或拖拽PDF文件到这里</p>
+                    </div>
+                </div>
+                <div class="quality-control">
+                    <label>压缩质量：</label>
+                    <input type="range" id="quality" min="0" max="100" value="80">
+                    <span id="quality-value">80%</span>
+                </div>
+                <button class="action-btn" id="compress-btn">压缩PDF</button>
+            </div>
+
+            <div class="tool-card" id="ocr-tool">
+                <h2>OCR文字识别</h2>
+                <div class="upload-area" id="ocr-upload">
+                    <input type="file" accept=".pdf" id="ocr-file">
+                    <div class="upload-content">
+                        <svg class="upload-icon" viewBox="0 0 24 24">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        <p>点击或拖拽PDF文件到这里</p>
+                    </div>
+                </div>
+                <select id="ocr-language">
+                    <option value="chi_sim">简体中文</option>
+                    <option value="chi_tra">繁体中文</option>
+                    <option value="eng">英文</option>
+                </select>
+                <button class="action-btn" id="ocr-btn">开始识别</button>
+                <div id="ocr-result" class="result-area"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
